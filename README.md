@@ -1,7 +1,7 @@
 # Shader Gadgets
 
-Shader Gadgets is a small catalog shell for shader-driven UI experiments
-implemented across multiple frameworks.
+Shader Gadgets is a small catalog of shader-driven UI experiments implemented
+across multiple frameworks.
 
 ## Frameworks
 
@@ -13,3 +13,8 @@ implemented across multiple frameworks.
   the Web and React Native apps.
 
 Each framework directory has its own `README.md` with setup and run commands.
+
+## Glide
+
+Glide transitions between two text snapshots, by
+sampling source and target textures with directional offsets.

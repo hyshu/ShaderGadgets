@@ -19,9 +19,6 @@ export function GadgetList({ navigation }: Props) {
       contentInsetAdjustmentBehavior="automatic"
     >
       <View style={styles.list}>
-        {GADGETS.length === 0 ? (
-          <Text style={styles.emptyText}>No gadgets yet.</Text>
-        ) : null}
         {GADGETS.map((gadget, index) => (
           <Pressable
             accessibilityRole="button"
@@ -68,11 +65,6 @@ const styles = StyleSheet.create({
   },
   firstListItem: {
     borderTopWidth: 0,
-  },
-  emptyText: {
-    color: "#737373",
-    fontSize: 15,
-    padding: 16,
   },
   listItemLabel: {
     color: "#171717",

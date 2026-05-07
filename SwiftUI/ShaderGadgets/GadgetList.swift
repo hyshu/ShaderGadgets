@@ -4,8 +4,9 @@ struct GadgetList: View {
   var body: some View {
     NavigationStack {
       List {
-        Text("No gadgets yet.")
-          .foregroundStyle(.secondary)
+        NavigationLink("Glide") {
+          GlideGadget()
+        }
       }
       .navigationTitle("Shader Gadgets")
     }

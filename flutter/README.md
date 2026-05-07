@@ -1,7 +1,7 @@
 # Flutter
 
 This is the Flutter version of Shader Gadgets. It uses Flutter widgets for the
-app UI.
+UI and `flutter_shaders` for the Glide fragment shader.
 
 ## Setup
 

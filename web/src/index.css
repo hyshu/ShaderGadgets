@@ -132,21 +132,6 @@ button:disabled {
   width: 100%;
 }
 
-.gadget-empty-state {
-  align-items: center;
-  aspect-ratio: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.gadget-empty-state p,
-.gadget-list-empty {
-  color: #737373;
-  font-size: 15px;
-  line-height: 1.4;
-  margin: 0;
-}
-
 .gadget-error {
   background: #fef2f2;
   border: 1px solid #fecaca;
@@ -168,10 +153,6 @@ button:disabled {
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
-}
-
-.gadget-list-empty {
-  padding: 16px;
 }
 
 .gadget-list-item {

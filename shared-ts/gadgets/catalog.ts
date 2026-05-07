@@ -1,17 +1,28 @@
 import type { ShaderGadgetState, TransitionMode } from "./types";
-import type { GadgetInfo } from "./info";
+import { GLIDE_GADGET_INFO, type GadgetInfo } from "./info";
 
-export type GadgetDefinition<TMode extends TransitionMode = TransitionMode> = {
-  mode: TMode;
+export type GadgetDefinition = {
+  mode: TransitionMode;
   label: string;
   info: GadgetInfo;
-  defaultState: () => ShaderGadgetState<TMode>;
+  defaultState: () => ShaderGadgetState;
 };
 
-export const GADGETS: readonly GadgetDefinition[] = [];
+export const GADGETS = [
+  {
+    mode: "glide",
+    label: "Glide",
+    info: GLIDE_GADGET_INFO,
+    defaultState: () => ({
+      mode: "glide",
+      time: 0,
+      angleDeg: 90,
+    }),
+  },
+] as const satisfies readonly GadgetDefinition[];
 
-export const INITIAL_GADGET: GadgetDefinition | undefined = GADGETS[0];
+export const INITIAL_GADGET = GADGETS[0];
 
-export function getGadget(mode: TransitionMode): GadgetDefinition | undefined {
+export function getGadget(mode: TransitionMode): GadgetDefinition {
   return GADGETS.find((gadget) => gadget.mode === mode) ?? INITIAL_GADGET;
 }
