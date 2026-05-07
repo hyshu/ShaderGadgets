@@ -160,7 +160,8 @@ class _GlideGadgetState extends State<GlideGadget>
       return;
     }
 
-    _playController.forward(from: 0);
+    final startTime = _time >= 1 ? 0.0 : _time;
+    _playController.forward(from: startTime);
   }
 
   void _reset() {

@@ -11,6 +11,7 @@ import {
 } from "./webgpu/shaderGadget";
 
 const INITIAL_STATE = INITIAL_GADGET.defaultState();
+const PLAY_DURATION_MS = 2000;
 
 export function GadgetWorkbench() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -92,10 +93,8 @@ export function GadgetWorkbench() {
       return;
     }
 
-    const durationMs = 2000;
-
     const tick = (now: number) => {
-      const time = Math.min((now - playStartRef.current) / durationMs, 1);
+      const time = Math.min((now - playStartRef.current) / PLAY_DURATION_MS, 1);
       setState((current) => ({ ...current, time }));
 
       if (time < 1) {
@@ -127,8 +126,9 @@ export function GadgetWorkbench() {
       return;
     }
 
-    setState((current) => ({ ...current, time: 0 }));
-    playStartRef.current = performance.now();
+    const startTime = stateRef.current.time >= 1 ? 0 : stateRef.current.time;
+    setState((current) => ({ ...current, time: startTime }));
+    playStartRef.current = performance.now() - startTime * PLAY_DURATION_MS;
     setIsPlaying(true);
   };
 

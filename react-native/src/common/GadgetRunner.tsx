@@ -13,12 +13,15 @@ type Props = NativeStackScreenProps<RootStackParamList, "GadgetRunner"> & {
   sourceFactory: ShaderGadgetSourceFactory | null;
 };
 
+const PLAY_DURATION_MS = 2000;
+
 export function GadgetRunner({ error, route, sourceFactory }: Props) {
   const mode = route.params.mode;
   const frameRef = useRef<number | null>(null);
   const playStartRef = useRef(0);
   const insets = useSafeAreaInsets();
   const [state, setState] = useState(() => getGadget(mode).defaultState());
+  const stateRef = useRef(state);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const stopPlayback = useCallback(() => {
@@ -35,6 +38,10 @@ export function GadgetRunner({ error, route, sourceFactory }: Props) {
   }, [mode, stopPlayback]);
 
   useEffect(() => {
+    stateRef.current = state;
+  }, [state]);
+
+  useEffect(() => {
     return () => {
       stopPlayback();
     };
@@ -45,10 +52,8 @@ export function GadgetRunner({ error, route, sourceFactory }: Props) {
       return;
     }
 
-    const durationMs = 2000;
-
     const tick = (now: number) => {
-      const time = Math.min((now - playStartRef.current) / durationMs, 1);
+      const time = Math.min((now - playStartRef.current) / PLAY_DURATION_MS, 1);
       setState((current) => ({ ...current, time }));
 
       if (time < 1) {
@@ -83,8 +88,9 @@ export function GadgetRunner({ error, route, sourceFactory }: Props) {
       return;
     }
 
-    setState((current) => ({ ...current, time: 0 }));
-    playStartRef.current = performance.now();
+    const startTime = stateRef.current.time >= 1 ? 0 : stateRef.current.time;
+    setState((current) => ({ ...current, time: startTime }));
+    playStartRef.current = performance.now() - startTime * PLAY_DURATION_MS;
     setIsPlaying(true);
   }, [isPlaying, stopPlayback]);
 

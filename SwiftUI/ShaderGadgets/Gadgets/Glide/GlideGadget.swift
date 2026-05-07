@@ -1,6 +1,7 @@
 import SwiftUI
 
 private let panelSize = CGSize(width: 280, height: 280)
+private let playDuration: Double = 2.0
 private let glideInfo = GadgetInfo(
   sources: [
     GadgetInfoLink(
@@ -84,13 +85,13 @@ struct GlideGadget: View {
     playTask?.cancel()
     playbackRunID += 1
     let runID = playbackRunID
-    time = 0
+    let startTime = time >= 1 ? 0 : time
+    time = startTime
     playTask = Task { @MainActor in
       let start = Date()
-      let duration: Double = 2.0
       while !Task.isCancelled {
         let elapsed = Date().timeIntervalSince(start)
-        let t = min(elapsed / duration, 1.0)
+        let t = min(startTime + elapsed / playDuration, 1.0)
         time = t
         if t >= 1.0 { break }
         try? await Task.sleep(nanoseconds: 16_000_000)
