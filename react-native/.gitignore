@@ -1,0 +1,15 @@
+# Expo / React Native generated state
+.expo/
+node_modules/
+
+# Expo prebuild output
+ios/
+android/
+
+# Build output
+dist/
+build/
+
+# Local OS/editor files
+.DS_Store
+*.log
